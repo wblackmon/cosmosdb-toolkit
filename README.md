@@ -1,4 +1,4 @@
-# Cosmos DB Stored Procedure IntelliSense
+# Cosmos DB Stored Procedure Toolkit
 
 This project provides a lightweight developer experience for authoring Cosmos DB stored procedures and triggers with real IntelliSense, rich JSDoc hover tooltips, and accurate type definitions. The goal is to make server-side JavaScript development in Cosmos DB feel as natural as writing modern Node.js code.
 
