@@ -52,8 +52,13 @@ function queryDocumentsExample(categoryFilter) {
     var response = context.getResponse();
     var results = [];
 
-    // Build query
-    var query = 'SELECT * FROM c WHERE c.category = "' + categoryFilter + '"';
+    // Build parameterized query to prevent SQL injection
+    var query = {
+        query: 'SELECT * FROM c WHERE c.category = @category',
+        parameters: [
+            { name: '@category', value: categoryFilter }
+        ]
+    };
 
     // Query documents with proper callback handling
     var accepted = collection.queryDocuments(

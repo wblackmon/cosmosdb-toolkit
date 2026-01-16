@@ -112,21 +112,6 @@ declare interface IQueryOptions {
 }
 
 /**
- * Feedback object returned from collection operations.
- */
-declare interface IFeedback {
-    /**
-     * Indicates whether the operation completed successfully.
-     */
-    isAccepted: boolean;
-
-    /**
-     * Error message if the operation failed.
-     */
-    errorMessage?: string;
-}
-
-/**
  * Callback function for asynchronous collection operations.
  * @callback CollectionCallback
  * @param {Error} error - Error object if operation failed, null otherwise
@@ -158,27 +143,27 @@ declare interface ICollection {
      * @param {any} document - The document object to create
      * @param {Object} [options] - Optional parameters for the request
      * @param {CollectionCallback} [callback] - Callback function
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     createDocument(
         collectionLink: string,
         document: any,
         options?: any,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 
     /**
      * Reads a document from the collection.
      * @param {string} documentLink - The self-link of the document
      * @param {Object} [options] - Optional parameters for the request
      * @param {CollectionCallback} [callback] - Callback function
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     readDocument(
         documentLink: string,
         options?: any,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 
     /**
      * Replaces an existing document in the collection.
@@ -186,27 +171,27 @@ declare interface ICollection {
      * @param {any} document - The new document object
      * @param {Object} [options] - Optional parameters for the request (e.g., etag for optimistic concurrency)
      * @param {CollectionCallback} [callback] - Callback function
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     replaceDocument(
         documentLink: string,
         document: any,
         options?: any,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 
     /**
      * Deletes a document from the collection.
      * @param {string} documentLink - The self-link of the document to delete
      * @param {Object} [options] - Optional parameters for the request (e.g., etag for optimistic concurrency)
      * @param {CollectionCallback} [callback] - Callback function
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     deleteDocument(
         documentLink: string,
         options?: any,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 
     /**
      * Queries documents in the collection.
@@ -214,27 +199,27 @@ declare interface ICollection {
      * @param {string | Object} query - SQL query string or query object
      * @param {IQueryOptions} [options] - Query options (continuation, pageSize)
      * @param {CollectionCallback} [callback] - Callback function that receives query results
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     queryDocuments(
         collectionLink: string,
         query: string | any,
         options?: IQueryOptions,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 
     /**
      * Reads all documents in the collection.
      * @param {string} collectionLink - The self-link of the collection
      * @param {IQueryOptions} [options] - Query options (continuation, pageSize)
      * @param {CollectionCallback} [callback] - Callback function
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     readDocuments(
         collectionLink: string,
         options?: IQueryOptions,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 
     /**
      * Creates an attachment for a document.
@@ -242,27 +227,27 @@ declare interface ICollection {
      * @param {any} attachment - The attachment object
      * @param {Object} [options] - Optional parameters for the request
      * @param {CollectionCallback} [callback] - Callback function
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     createAttachment(
         documentLink: string,
         attachment: any,
         options?: any,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 
     /**
      * Reads an attachment from a document.
      * @param {string} attachmentLink - The self-link of the attachment
      * @param {Object} [options] - Optional parameters for the request
      * @param {CollectionCallback} [callback] - Callback function
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     readAttachment(
         attachmentLink: string,
         options?: any,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 
     /**
      * Replaces an attachment.
@@ -270,25 +255,25 @@ declare interface ICollection {
      * @param {any} attachment - The new attachment object
      * @param {Object} [options] - Optional parameters for the request
      * @param {CollectionCallback} [callback] - Callback function
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     replaceAttachment(
         attachmentLink: string,
         attachment: any,
         options?: any,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 
     /**
      * Deletes an attachment from a document.
      * @param {string} attachmentLink - The self-link of the attachment to delete
      * @param {Object} [options] - Optional parameters for the request
      * @param {CollectionCallback} [callback] - Callback function
-     * @returns {IFeedback} Feedback indicating if the operation was accepted
+     * @returns {boolean} True if the operation was accepted for processing, false otherwise
      */
     deleteAttachment(
         attachmentLink: string,
         options?: any,
         callback?: CollectionCallback
-    ): IFeedback;
+    ): boolean;
 }
