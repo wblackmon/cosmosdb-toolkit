@@ -1,52 +1,51 @@
 # Cosmos DB Stored Procedure IntelliSense
 
-This project provides a lightweight developer experience for authoring Cosmos DB
-stored procedures and triggers with real IntelliSense, hover tooltips, and type
-definitions. The goal is to make server-side JavaScript development in Cosmos DB
-feel as natural as writing modern Node.js code.
+This project provides a lightweight developer experience for authoring Cosmos DB stored procedures and triggers with real IntelliSense, rich JSDoc hover tooltips, and accurate type definitions. The goal is to make server-side JavaScript development in Cosmos DB feel as natural as writing modern Node.js code.
 
 ## Features
 
 - Global `.d.ts` definitions for Cosmos DB server-side APIs
-- Real JSDoc hover tooltips for:
-  - getContext()
-  - getCollection()
-  - getRequest()
-  - getResponse()
-  - getBody()
-- Fully working IntelliSense inside plain JavaScript (no TypeScript required)
+- Full JSDoc hover tooltips for:
+  - `getContext()`
+  - `getCollection()`
+  - `getRequest()`
+  - `getResponse()`
+  - `getBody()` (typed via generics)
+- IntelliSense inside plain JavaScript (`@ts-check`), no TypeScript required
+- Typed request bodies using `IRequest<T>`
 - Scratchpad stored procedure for exploring the API surface
 - Clean, minimal structure designed for future expansion
-- Soft-blocking of unsupported APIs (e.g., `console.log`)
+- Automatic type injection via VS Code extension contribution
 
 ## File Structure
 
 .vscode/
-  launch.json           # Debug configuration (optional)
+launch.json # Debug configuration (optional)
 
 types/
-  cosmosdb.d.ts         # Global type definitions for Cosmos DB server-side JS
+cosmosdb.d.ts # Global type definitions for Cosmos DB server-side JS
 
 test/
-  test-sp.js            # Scratchpad stored procedure for IntelliSense testing
+test-sp.js # Scratchpad for IntelliSense testing
 
-jsconfig.json           # Ensures VS Code loads .d.ts and enables tooltips
-.gitignore              # Repo hygiene
-extension.js            # Extension entry point (future use)
-package.json            # Project metadata and dependencies
-README.md               # Project documentation
+jsconfig.json # Enables modern JS + DOM + type acquisition
+.gitignore # Repo hygiene
+extension.js # Extension activation entry point
+package.json # Extension metadata and type contribution
+README.md # Project documentation
 
 ## Getting Started
 
 1. Open the project in VS Code.
-2. Ensure JavaScript IntelliSense is enabled.
-3. Open `test/test-sp.js` and start typing inside the `scratchpad()` function.
-4. Hover over any Cosmos DB API (e.g., `getContext`, `getCollection`) to see full tooltips.
+2. Ensure JavaScript IntelliSense is enabled (`@ts-check` is supported automatically).
+3. Open `test/test-sp.js` and start typing inside the scratchpad.
+4. Hover over any Cosmos DB API (e.g., `getContext`, `getCollection`, `createDocument`) to see full tooltips.
 5. Explore the API surface by typing:
-   - `ctx.`  
-   - `coll.`  
-   - `req.`  
-   - `res.`  
+   - `ctx.`
+   - `coll.`
+   - `req.`
+   - `res.`
+6. To test typed request bodies, edit the `@typedef` in `test-sp.js`.
 
 ## Goals
 

@@ -1,28 +1,36 @@
 // @ts-check
 
-function scratchpad() {
-  const ctx = getContext();          // IContext
-  const coll = ctx.getCollection();  // ICollection
-  const req = ctx.getRequest();      // IRequest
-  const res = ctx.getResponse();     // IResponse
+/**
+ * Example typed request body for IntelliSense.
+ * Change this shape to test different scenarios.
+ * @typedef {{ id: string, value: number }} DemoBody
+ */
 
-  const body = req.getBody();        // any
+/** @type {IRequest<DemoBody>} */
+const req = getContext().getRequest();
 
-  // ---------------------------------------------------
-  // Type here — explore IntelliSense from a clean baseline
-  // ---------------------------------------------------
+const ctx = getContext();
+const coll = ctx.getCollection();
+const res = ctx.getResponse();
 
-  // ctx.
-  // coll.
-  // req.
-  // res.
-  // body.
+const body = req.getBody();
+body; // IntelliSense now works on `body.`
 
-  return {
-    contextType: typeof ctx,
-    collectionType: typeof coll,
-    requestType: typeof req,
-    responseType: typeof res,
-    bodyPreview: body
-  };
-}
+const op = req.getOperationType();
+const trig = req.getTriggerType();
+
+const acceptedCreate = coll.createDocument(
+  coll.getSelfLink(),
+  { id: "demo", value: 123 },
+  {},
+  (err, doc, opts) => {}
+);
+
+const acceptedQuery = coll.queryDocuments(
+  coll.getSelfLink(),
+  "SELECT * FROM c",
+  { pageSize: 10 },
+  (err, results, opts) => {}
+);
+
+res.setBody({ ok: true, op, trig, acceptedCreate, acceptedQuery });
