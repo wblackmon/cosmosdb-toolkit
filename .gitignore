@@ -1,0 +1,27 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# VS Code
+.vscode/
+.history/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Build artifacts
+dist/
+out/
+
+# Environment / secrets
+.env
+*.local
+secrets.json
+
+# TypeScript build output (if added later)
+*.tsbuildinfo

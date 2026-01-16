@@ -1,0 +1,20 @@
+{
+  "name": "cosmosdb-toolkit",
+  "displayName": "Cosmos DB Toolkit",
+  "description": "Developer tools for authoring Cosmos DB stored procedures, triggers, and UDFs.",
+  "version": "0.1.0",
+  "publisher": "wayneblackmon",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./extension.js",
+
+  "activationEvents": [
+    "onLanguage:javascript"
+  ],
+
+  "contributes": {}
+}
