@@ -1,86 +1,149 @@
-/** 
- * Cosmos DB server-side JavaScript API (minimal authoritative definitions).
- * These types provide IntelliSense for stored procedures, triggers, and UDFs.
- */
+// ------------------------------------------------------------
+// Cosmos DB Server-Side API (Global Definitions)
+// Option B: Optional parameters for ergonomic developer use
+// Includes full JSDoc for IntelliSense and hover tooltips
+// ------------------------------------------------------------
 
 /**
- * Returns the current Cosmos DB server-side context.
- * The context exposes request, response, and collection operations.
+ * Gets the current request context for the stored procedure or trigger.
+ * Provides access to collection operations, request metadata, and response handling.
  */
 declare function getContext(): IContext;
 
+// ------------------------------------------------------------
+// Context
+// ------------------------------------------------------------
+
 /**
- * Represents the Cosmos DB execution context for server-side JavaScript.
- * Provides access to the request, response, and collection objects.
+ * Represents the execution context for a Cosmos DB server-side script.
+ * Provides access to collection operations, request metadata, and response handling.
  */
 interface IContext {
   /**
-   * Gets the collection object used for CRUD and query operations.
+   * Gets the collection object used to perform CRUD and query operations.
    */
   getCollection(): ICollection;
 
   /**
-   * Gets the incoming request object.
-   * Useful for triggers to inspect or modify the request body.
+   * Gets metadata about the incoming request.
    */
   getRequest(): IRequest;
 
   /**
-   * Gets the outgoing response object.
-   * Stored procedures can set the response body here.
+   * Gets the response object used to set the script's output.
    */
   getResponse(): IResponse;
 }
 
+// ------------------------------------------------------------
+// Collection
+// ------------------------------------------------------------
+
 /**
- * Represents the collection object used to query, read, create,
- * and update documents within the current partition.
+ * Provides CRUD and query operations against the current collection.
  */
 interface ICollection {
   /**
-   * Queries documents using SQL or a parameterized query.
-   * @param collectionLink - Self-link of the collection.
-   * @param filterQuery - SQL string or parameterized query object.
-   * @param options - Query options such as continuation tokens.
-   * @param callback - Called with (err, results, responseOptions).
-   */
-  queryDocuments(
-    collectionLink: string,
-    filterQuery: string | object,
-    options: IRequestOptions,
-    callback: (err: any, feed: any[], options: IQueryResponse) => void
-  ): void;
-
-  /**
    * Creates a new document in the collection.
-   * @param collectionLink - Self-link of the collection.
+   * @param collectionLink - The self-link of the collection.
    * @param body - The document to create.
-   * @param options - Request options.
-   * @param callback - Called with (err, createdDocument, responseOptions).
+   * @param options - Optional request options.
+   * @param callback - Optional callback invoked with the created document.
    */
   createDocument(
     collectionLink: string,
-    body: object,
-    options: IRequestOptions,
-    callback: (err: any, document: any, options: IQueryResponse) => void
+    body: any,
+    options?: any,
+    callback?: (err: any, document: any) => void
   ): void;
 
   /**
    * Reads a document by its self-link.
-   * @param documentLink - Self-link of the document.
-   * @param options - Request options.
-   * @param callback - Called with (err, document, responseOptions).
+   * @param documentLink - The self-link of the document.
+   * @param options - Optional request options.
+   * @param callback - Optional callback invoked with the retrieved document.
    */
   readDocument(
     documentLink: string,
-    options: IRequestOptions,
-    callback: (err: any, document: any, options: IQueryResponse) => void
+    options?: any,
+    callback?: (err: any, document: any) => void
+  ): void;
+
+  /**
+   * Replaces an existing document.
+   * @param documentLink - The self-link of the document.
+   * @param body - The updated document body.
+   * @param options - Optional request options.
+   * @param callback - Optional callback invoked with the updated document.
+   */
+  replaceDocument(
+    documentLink: string,
+    body: any,
+    options?: any,
+    callback?: (err: any, document: any) => void
+  ): void;
+
+  /**
+   * Deletes a document.
+   * @param documentLink - The self-link of the document.
+   * @param options - Optional request options.
+   * @param callback - Optional callback invoked when the delete completes.
+   */
+  deleteDocument(
+    documentLink: string,
+    options?: any,
+    callback?: (err: any) => void
+  ): void;
+
+  /**
+   * Queries documents in the collection.
+   * @param collectionLink - The self-link of the collection.
+   * @param query - SQL string or query spec object.
+   * @param options - Optional request options.
+   * @param callback - Optional callback invoked with the result set.
+   */
+  queryDocuments(
+    collectionLink: string,
+    query: string | object,
+    options?: any,
+    callback?: (err: any, documents: any[]) => void
+  ): void;
+
+  /**
+   * Queries stored procedures in the collection.
+   * @param collectionLink - The self-link of the collection.
+   * @param query - SQL string or query spec object.
+   * @param options - Optional request options.
+   * @param callback - Optional callback invoked with the result set.
+   */
+  queryStoredProcedures(
+    collectionLink: string,
+    query: string | object,
+    options?: any,
+    callback?: (err: any, sprocs: any[]) => void
+  ): void;
+
+  /**
+   * Executes a stored procedure.
+   * @param sprocLink - The self-link of the stored procedure.
+   * @param params - Array of parameters passed to the stored procedure.
+   * @param options - Optional request options.
+   * @param callback - Optional callback invoked with the stored procedure result.
+   */
+  executeStoredProcedure(
+    sprocLink: string,
+    params: any[],
+    options?: any,
+    callback?: (err: any, result: any) => void
   ): void;
 }
 
+// ------------------------------------------------------------
+// Request
+// ------------------------------------------------------------
+
 /**
- * Represents the incoming request for triggers.
- * Allows reading and modifying the request body.
+ * Represents metadata about the incoming request.
  */
 interface IRequest {
   /**
@@ -89,47 +152,56 @@ interface IRequest {
   getBody(): any;
 
   /**
-   * Replaces the request body.
-   * @param body - New request body.
+   * Gets the request value (alias for body in many cases).
+   */
+  getValue(): any;
+
+  /**
+   * Gets the operation type (e.g., Create, Read, Replace).
+   */
+  getOperationType(): string;
+
+  /**
+   * Gets the resource type (e.g., Documents, StoredProcedures).
+   */
+  getResourceType(): string;
+
+  /**
+   * Gets the request headers.
+   */
+  getHeaders(): any;
+
+  /**
+   * Sets the request body.
    */
   setBody(body: any): void;
 }
 
+// ------------------------------------------------------------
+// Response
+// ------------------------------------------------------------
+
 /**
- * Represents the outgoing response for stored procedures.
- * Allows reading and modifying the response body.
+ * Represents the response returned from the server-side script.
  */
 interface IResponse {
+  /**
+   * Sets the response body.
+   */
+  setBody(body: any): void;
+
   /**
    * Gets the response body.
    */
   getBody(): any;
 
   /**
-   * Sets the response body.
-   * @param body - New response body.
+   * Sets the HTTP status code for the response.
    */
-  setBody(body: any): void;
-}
+  setStatusCode(code: number): void;
 
-/**
- * Options for document operations and queries.
- */
-interface IRequestOptions {
-  /** Maximum number of items to return. */
-  pageSize?: number;
-
-  /** Continuation token for paginated queries. */
-  continuation?: string;
-
-  /** Whether to disable RU-per-minute usage. */
-  disableRUPerMinuteUsage?: boolean;
-}
-
-/**
- * Metadata returned from queries and document operations.
- */
-interface IQueryResponse {
-  /** Continuation token for paginated results. */
-  continuation?: string;
+  /**
+   * Gets the HTTP status code for the response.
+   */
+  getStatusCode(): number;
 }
