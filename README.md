@@ -6,89 +6,58 @@ The **Cosmos DB Toolkit** provides IntelliSense, snippets, and authoring support
 
 ## Features
 
-- **Type Definitions for Cosmos DB Server‑Side APIs**  
-  Automatic IntelliSense for:
-  - `getContext()`
-  - `getCollection()`
-  - Request/response objects
-  - Collection operations (`createDocument`, `readDocument`, `queryDocuments`, etc.)
+### **Authoritative Type Definitions for Cosmos DB Server‑Side APIs**
 
-- **Snippets for Stored Procedures, Triggers, and UDFs**  
-  Quickly scaffold:
-  - Stored procedure templates  
-  - Pre‑trigger and post‑trigger templates  
-  - UDF boilerplate  
-  - Callback patterns and continuation‑token loops  
+Accurate, modern IntelliSense for all server‑side operations:
 
-- **Lightweight and Zero‑Configuration**  
-  Works automatically in any `.js` file containing Cosmos DB server‑side code.
+- `getContext()`, `getCollection()`
+- Request/response objects
+- CRUD operations (`createDocument`, `readDocument`, `replaceDocument`, `deleteDocument`)
+- Query operations (`queryDocuments`, `queryStoredProcedures`)
+- Stored procedure execution (`executeStoredProcedure`)
+- Fully documented with JSDoc for premium hover tooltips
+- Optional parameters for ergonomic developer experience
 
-> Screenshots and examples will be added as features are finalized.
+### **Snippets for Stored Procedures, Triggers, and UDFs**
 
----
+Quickly scaffold:
 
-## Requirements
+- Stored procedure templates  
+- Pre‑trigger and post‑trigger templates  
+- UDF boilerplate  
+- Callback patterns  
+- Continuation‑token query loops  
 
-No external dependencies.  
-The extension works out‑of‑the‑box with:
+### **Scratchpad for IntelliSense Testing**
 
-- JavaScript (`.js`) files  
-- Any Cosmos DB development workflow  
-- Any VS Code workspace  
+A dedicated `scratchpad.ts` file is included for validating:
 
----
+- Global API definitions  
+- Completion provider behavior  
+- Hover tooltips  
+- Optional parameter signatures  
 
-## Extension Settings
+Ideal for extension development and debugging.
 
-This version does not contribute user‑configurable settings.
+### **Lightweight and Zero‑Configuration**
 
-Future versions may include:
-
-- Snippet toggles  
-- Strict/relaxed IntelliSense modes  
-- Template selection options  
+Works automatically in any `.js` or `.ts` file containing Cosmos DB server‑side code.
 
 ---
 
-## Known Issues
+## Development Workflow
 
-- TypeScript execution of server‑side code still requires manual transpilation to JavaScript  
-- Additional snippets and scaffolding commands are planned  
-- Inline diagnostics are not yet implemented  
+### **Extension Development Host Setup**
 
-Please report issues or feature requests in the repository.
+To ensure clean IntelliSense during development:
 
----
+1. Launch the Extension Development Host with **F5**  
+2. In that window, create `.vscode/settings.json`  
+3. Disable Copilot completions for a pure IntelliSense environment:
 
-## Release Notes
-
-### 0.0.1
-
-- Initial scaffold  
-- Adds test runner  
-- Prepares extension structure for IntelliSense and snippet contributions  
-
----
-
-## Following Extension Guidelines
-
-This extension follows the official VS Code extension authoring guidelines:  
-<https://code.visualstudio.com/api/references/extension-guidelines>
-
----
-
-## Working with Markdown
-
-VS Code includes excellent Markdown authoring tools:
-
-- Split editor: `Ctrl+\`  
-- Toggle preview: `Ctrl+Shift+V`  
-- Trigger suggestions: `Ctrl+Space`  
-
----
-
-## Additional Resources
-
-- Cosmos DB Server‑Side Programming Docs  
-- VS Code Markdown Support  
-- Markdown Syntax Reference
+```jsonc
+{
+  "github.copilot.enable": {
+    "*": false
+  }
+}
