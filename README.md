@@ -18,6 +18,41 @@ Accurate, modern IntelliSense for all server‑side operations:
 - Fully documented with JSDoc for premium hover tooltips
 - Optional parameters for ergonomic developer experience
 
+### **Signature Help for Server‑Side Operations**
+
+The toolkit now includes rich Signature Help for Cosmos DB server‑side APIs.
+
+Typing inside a stored procedure, trigger, UDF, or the included scratchpad displays:
+
+- function signatures  
+- parameter lists  
+- active parameter highlighting  
+- optional parameter hints  
+- callback signatures  
+
+#### **Currently Supported**
+
+- `createDocument` — full Signature Help with active parameter tracking  
+  (additional methods will be added incrementally)
+
+#### Example
+
+```js
+coll.createDocument(
+```
+
+Automatically opens Signature Help showing:
+
+```md
+createDocument(collectionLink: string, body: any, options?: any, callback?: CosmosCallback<any>)
+```
+
+As you type arguments and commas, the active parameter updates in real time.
+
+This behavior is fully validated by automated tests.
+
+---
+
 ### **Snippets for Stored Procedures, Triggers, and UDFs**
 
 Quickly scaffold:
@@ -28,20 +63,25 @@ Quickly scaffold:
 - Callback patterns  
 - Continuation‑token query loops  
 
+---
+
 ### **Scratchpad for IntelliSense Testing**
 
 A dedicated `scratchpad.ts` file is included for validating:
 
 - Global API definitions  
 - Completion provider behavior  
+- Signature Help  
 - Hover tooltips  
 - Optional parameter signatures  
 
-Ideal for extension development and debugging.
+Launch the Extension Development Host with **F5**, open the scratchpad, and begin typing:
 
-### **Lightweight and Zero‑Configuration**
+```ts
+coll.createDocument(
+```
 
-Works automatically in any `.js` or `.ts` file containing Cosmos DB server‑side code.
+to validate the behavior.
 
 ---
 
@@ -51,8 +91,8 @@ Works automatically in any `.js` or `.ts` file containing Cosmos DB server‑sid
 
 To ensure clean IntelliSense during development:
 
-1. Launch the Extension Development Host with **F5**  
-2. In that window, create `.vscode/settings.json`  
+1. Launch the Extension Development Host with **F5**
+2. In that window, create `.vscode/settings.json`
 3. Disable Copilot completions for a pure IntelliSense environment:
 
 ```jsonc
@@ -61,3 +101,28 @@ To ensure clean IntelliSense during development:
     "*": false
   }
 }
+```
+
+---
+
+## Testing
+
+The extension includes automated tests for:
+
+- extension activation  
+- Signature Help behavior for `createDocument`  
+- correct active parameter selection  
+- trigger characters `(` and `,`  
+- deterministic behavior in both JavaScript and TypeScript documents  
+
+Run the full suite with:
+
+```md
+npm test
+```
+
+---
+
+## License
+
+MIT

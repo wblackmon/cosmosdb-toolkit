@@ -1,43 +1,36 @@
 # Changelog
 
-All notable changes to the **Cosmos DB Toolkit** extension will be documented in this file.
-
-This project follows the principles of [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and uses semantic versioning.
+All notable changes to this project will be documented in this file.
 
 ---
 
-## [Unreleased]
+## [0.0.2] – 2026‑01‑26
 
-_No unreleased changes yet._
+### Added
+
+- Full Signature Help support for `createDocument`, including:
+  - parameter list rendering  
+  - active parameter highlighting  
+  - callback signature display  
+  - JavaScript and TypeScript support  
+- Automated tests validating:
+  - trigger on `(`  
+  - parameter advancement on `,`  
+  - correct active parameter index  
+- Registration of the Signature Help provider for JS/TS documents.
+
+### Improved
+
+- Updated scratchpad with guided Signature Help testing instructions.
+- Updated README to document new Signature Help capabilities.
 
 ---
 
-## [0.0.2] – 2026-01-26
+## [0.0.1] – Initial Release
 
 ### 0.0.2 Added
 
-- Full JSDoc documentation for Cosmos DB server‑side API definitions  
-- Optional parameter support for all collection operations  
-- IntelliSense scratchpad for development and debugging  
-- Guidance for disabling Copilot in the Extension Development Host  
-- Improved completion provider behavior for optional parameters  
-
-### 0.0.2 Changed
-
-- Updated `cosmosdb.d.ts` to match real Cosmos DB server‑side API behavior  
-- Updated `tsconfig.json` to include global type definitions and scratchpad  
-
-### 0.0.2 Fixed
-
-- IntelliSense pollution from Copilot in the Extension Development Host  
-- Missing global declarations in scratchpad  
-
----
-
-## [0.0.1] – 2026-01-26
-
-### 0.0.1 Added
-
-- Initial extension scaffold  
-- Test runner setup (VS Code integration tests)  
-- Project structure for IntelliSense, snippets, and completion providers  
+- Authoritative type definitions for Cosmos DB server‑side APIs.
+- Snippets for stored procedures, triggers, and UDFs.
+- Scratchpad for IntelliSense testing.
+- Basic extension activation and command registration.

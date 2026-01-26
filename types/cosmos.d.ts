@@ -205,3 +205,15 @@ interface IResponse {
    */
   getStatusCode(): number;
 }
+
+
+// ------------------------------------------------------------
+// Callback
+// ------------------------------------------------------------
+
+/**
+ * Generic Cosmos DB callback type.
+ * @template T The expected result type.
+ */
+type CosmosCallback<T> = (err: any, result: T) => void;
+
